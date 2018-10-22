@@ -76,7 +76,9 @@
         <cat id="-1" name="Default"/>
     </attcats>
     <props/>
-    <attributes/>
+    <attributes>
+        <number cid="-1" id="0" name="HP" save="true" value="0"/>
+    </attributes>
     <collisions>
         <poly id="1" name="Square" pts="0.0,0.0#0.0,1.0#1.0,1.0#1.0,0.0"/>
     </collisions>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <pack>
     <snippet actorid="50" attachedevent="true" class="scripts.ActorEvents_50" classname="scripts.ActorEvents_50" desc="Actor Specific Events" description="Actor Specific Events" design="true" drawOrder="0" id="18" name="ActorEvents_50" oid="-1" package="scripts." shared="false" type="actor">
+        <number default="0" defaultValue="0" desc="" dropdown="" fullname="HP" hidden="false" id="1" name="_HP" order="0"/>
         <blocks/>
         <events>
             <event displayName="Actor - Type" enabled="true" id="1" name="event-collide-actortotype" order="1" repeats="true"/>
+            <event displayName="Created" enabled="true" id="2" name="init" order="2" repeats="true"/>
         </events>
     </snippet>
     <snippet actorid="52" attachedevent="true" class="scripts.ActorEvents_52" classname="scripts.ActorEvents_52" desc="Actor Specific Events" description="Actor Specific Events" design="true" drawOrder="0" id="19" name="ActorEvents_52" oid="-1" package="scripts." shared="false" type="actor">
