@@ -71,16 +71,67 @@ import com.stencyl.graphics.shaders.BloomShader;
 
 class ActorEvents_4 extends ActorScript
 {
+	public var _HealthPoint:Float;
+	
+	/* ========================= Custom Event ========================= */
+	public function _customEvent_Hit():Void
+	{
+		_HealthPoint += 1;
+		propertyChanged("_HealthPoint", _HealthPoint);
+		actor.setFilter([createNegativeFilter()]);
+		runLater(1000 * 1, function(timeTask:TimedTask):Void
+		{
+			actor.clearFilters();
+		}, actor);
+	}
 	
 	
 	public function new(dummy:Int, actor:Actor, dummy2:Engine)
 	{
 		super(actor);
+		nameMap.set("Health Point", "_HealthPoint");
+		_HealthPoint = 0;
 		
 	}
 	
 	override public function init()
 	{
+		
+		/* ======================== When Creating ========================= */
+		_HealthPoint = asNumber(3);
+		propertyChanged("_HealthPoint", _HealthPoint);
+		
+		/* ======================== Actor of Type ========================= */
+		addCollisionListener(actor, function(event:Collision, list:Array<Dynamic>):Void
+		{
+			if(wrapper.enabled && sameAsAny(getActorType(2), event.otherActor.getType(),event.otherActor.getGroup()))
+			{
+				event.otherActor.shout("_customEvent_" + "Hit");
+				recycleActor(actor);
+			}
+		});
+		
+		/* ======================== Specific Actor ======================== */
+		addActorPositionListener(actor, function(enteredScreen:Bool, exitedScreen:Bool, enteredScene:Bool, exitedScene:Bool, list:Array<Dynamic>):Void
+		{
+			if(wrapper.enabled && exitedScreen)
+			{
+				recycleActor(actor);
+			}
+		});
+		
+		/* ======================== When Updating ========================= */
+		addWhenUpdatedListener(null, function(elapsedTime:Float, list:Array<Dynamic>):Void
+		{
+			if(wrapper.enabled)
+			{
+				if((_HealthPoint <= 0))
+				{
+					playSound(getSound(7));
+					recycleActor(actor);
+				}
+			}
+		});
 		
 	}
 	
