@@ -78,7 +78,7 @@ class ActorEvents_0 extends ActorScript
 	{
 		super(actor);
 		nameMap.set("Ship Speed", "_ShipSpeed");
-		_ShipSpeed = 20;
+		_ShipSpeed = 20.0;
 		
 	}
 	
@@ -92,15 +92,15 @@ class ActorEvents_0 extends ActorScript
 			{
 				if(isKeyDown("right"))
 				{
-					actor.setX(_ShipSpeed);
+					actor.setXVelocity(_ShipSpeed);
 				}
 				else if(isKeyDown("left"))
 				{
-					actor.setX(-(_ShipSpeed));
+					actor.setXVelocity(-(_ShipSpeed));
 				}
 				else if((!(isKeyDown("left")) && !(isKeyDown("right"))))
 				{
-					actor.setX(0);
+					actor.setXVelocity(0);
 				}
 			}
 		});
@@ -127,7 +127,7 @@ class ActorEvents_0 extends ActorScript
 			if(wrapper.enabled && pressed)
 			{
 				createRecycledActor(getActorType(4), actor.getX(), actor.getY(), Script.FRONT);
-				getLastCreatedActor().applyImpulse(0, -3, 40);
+				getLastCreatedActor().applyImpulse(0, -1, 40);
 			}
 		});
 		

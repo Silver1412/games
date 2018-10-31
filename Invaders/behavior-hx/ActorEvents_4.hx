@@ -90,7 +90,7 @@ class ActorEvents_4 extends ActorScript
 	{
 		super(actor);
 		nameMap.set("Health Point", "_HealthPoint");
-		_HealthPoint = 0;
+		_HealthPoint = 0.0;
 		
 	}
 	
