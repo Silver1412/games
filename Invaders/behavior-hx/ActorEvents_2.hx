@@ -71,16 +71,49 @@ import com.stencyl.graphics.shaders.BloomShader;
 
 class ActorEvents_2 extends ActorScript
 {
+	public var _HealthPoint:Float;
+	
+	/* ========================= Custom Event ========================= */
+	public function _customEvent_Hit():Void
+	{
+		_HealthPoint -= 1;
+		propertyChanged("_HealthPoint", _HealthPoint);
+		actor.setFilter([createNegativeFilter()]);
+		runLater(1000 * .1, function(timeTask:TimedTask):Void
+		{
+			actor.clearFilters();
+		}, actor);
+		if((_HealthPoint <= 0))
+		{
+			recycleActor(actor);
+		}
+	}
 	
 	
 	public function new(dummy:Int, actor:Actor, dummy2:Engine)
 	{
 		super(actor);
+		nameMap.set("Health Point", "_HealthPoint");
+		_HealthPoint = 0;
 		
 	}
 	
 	override public function init()
 	{
+		
+		/* ======================== When Creating ========================= */
+		_HealthPoint = asNumber(3);
+		propertyChanged("_HealthPoint", _HealthPoint);
+		
+		/* ======================== Actor of Type ========================= */
+		addCollisionListener(actor, function(event:Collision, list:Array<Dynamic>):Void
+		{
+			if(wrapper.enabled && sameAsAny(getActorType(4), event.otherActor.getType(),event.otherActor.getGroup()))
+			{
+				recycleActor(event.otherActor);
+				event.thisActor.shout("_customEvent_" + "Hit");
+			}
+		});
 		
 	}
 	

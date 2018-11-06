@@ -73,18 +73,6 @@ class ActorEvents_4 extends ActorScript
 {
 	public var _HealthPoint:Float;
 	
-	/* ========================= Custom Event ========================= */
-	public function _customEvent_Hit():Void
-	{
-		_HealthPoint += 1;
-		propertyChanged("_HealthPoint", _HealthPoint);
-		actor.setFilter([createNegativeFilter()]);
-		runLater(1000 * 1, function(timeTask:TimedTask):Void
-		{
-			actor.clearFilters();
-		}, actor);
-	}
-	
 	
 	public function new(dummy:Int, actor:Actor, dummy2:Engine)
 	{
